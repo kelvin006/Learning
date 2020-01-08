@@ -1,0 +1,79 @@
+---
+title: Data Wrangling
+output: html_notebook
+---
+```{r}
+## The Gapminder Dataset
+# Load the gapminder package
+library(gapminder)
+
+# Load the dplyr package
+library (dplyr)
+
+# Look at the gapminder dataset
+gapminder
+```
+```{r}
+## Filtering for one year
+
+gapminder %>%
+  filter (year == 1957)
+```
+```{r}
+## Filtering one country and one year; China and 2002
+gapminder %>%
+filter(country == 'China', year == 2002)
+```
+
+
+```{r}
+# Sort in ascending order of lifeExp
+gapminder%>%
+arrange(lifeExp)
+
+```
+
+
+```{r}
+# Sort in descending order of lifeExp
+gapminder%>%
+arrange(desc(lifeExp))
+```
+
+
+```{r}
+## Filtering and arranging
+# Filter for the year 1957, then arrange in descending order of population
+
+gapminder %>%
+  filter (year == 1957)%>%
+  arrange (desc(pop))
+```
+
+
+```{r}
+## Using mutate to change a column
+# inspect the gapminder dataset
+gapminder
+
+# Use mutate to change lifeExp to be in months
+gapminder %>%
+  mutate(lifeExp = 12 * lifeExp)
+```
+
+
+```{r}
+# Use mutate to create a new column called lifeExpMonths
+gapminder %>%
+  mutate(lifeExpMonths = 12 * lifeExp)
+```
+
+
+```{r}
+## Combining filter, mutate, and arrange
+
+gapminder%>%
+  filter(year == 2007)%>%
+  mutate(lifeExpMonths = 12 * lifeExp)%>%
+  arrange (desc(lifeExpMonths))
+```
