@@ -1,0 +1,63 @@
+## Time and Date
+# Get the current date: today
+today <- Sys.Date()
+today
+# See what today looks like under the hood
+unclass(today)
+
+# Get the current time: now
+now <- Sys.time()
+now
+# See what now looks like under the hood
+unclass(now)
+
+# Definition of character strings representing dates
+str1 <- "May 23, '96"
+str2 <- "2012-03-15"
+str3 <- "30/January/2006"
+
+# Convert the strings to dates: date1, date2, date3
+date1 <- as.Date (str1, format = "%b %d, '%y")
+date2 <- as.Date (str2, format = "%Y-%m-%d")
+date3 <- as.Date (str3, format = "%d/%B/%Y")
+date1
+date2
+date3
+# Convert dates to formatted strings
+format(date1, "%A")
+format(date2, "%d")
+format(date3, "%b %Y")
+
+## create and format times
+# Definition of character strings representing times
+str1 <- "May 23, '96 hours:23 minutes:01 seconds:45"
+str2 <- "2012-3-12 14:23:08"
+
+# Convert the strings to POSIXct objects: time1, time2
+time1 <- as.POSIXct(str1, format = "%B %d, '%y hours:%H minutes:%M seconds:%S")
+time2 <- as.POSIXct(str2, format = "%Y-%m-%d %H:%M:%S")
+time1
+time2
+# Convert times to formatted strings
+format (time1, '%M')
+format (time2, "%I:%M %p")
+
+## Calculations with time
+
+login <- as.POSIXct(c("2019-12-25 10:18:04 UTC", "2019-12-30 09:14:18 UTC", "2019-12-30 12:21:51 UTC",
+           "2019-12-30 12:37:24 UTC", "2020-01-01 21:37:55 UTC"))
+logout <- as.POSIXct(c("2019-12-25 10:56:29 UTC", "2019-12-30 09:14:52 UTC", "2019-12-30 12:35:48 UTC",
+            "2019-12-30 12:35:48 UTC", "2020-01-01 22:08:47 UTC"))
+# Calculate the difference between login and logout: time_online
+
+time_online <- logout-login
+time_online
+
+# Inspect the variable time_online
+class(time_online)
+
+# Calculate the total time online
+sum(time_online)
+
+# Calculate the average time online
+mean(time_online)
