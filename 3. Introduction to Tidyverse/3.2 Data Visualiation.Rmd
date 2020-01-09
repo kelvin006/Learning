@@ -1,0 +1,83 @@
+---
+title: "Data Visualization"
+output: html_notebook
+---
+
+```{r}
+## Load libraries
+library(gapminder)
+library(dplyr)
+library(ggplot2)
+
+# Comparing population and GDP per capita in 1952
+
+gapminder_1952 <- gapminder %>%
+  filter(year == 1952)
+ggplot(gapminder_1952, aes(x = pop, y = gdpPercap)) + geom_point()
+```
+
+
+```{r}
+## Comparing population and life expectancy
+
+ggplot(gapminder_1952, aes(x = pop, y = lifeExp)) + geom_point()
+
+# Put the x-axis on a log scale
+
+ggplot(gapminder_1952, aes(x = pop, y = lifeExp)) + geom_point() + scale_x_log10()
+
+# Put both axes on a log scale
+
+ggplot(gapminder_1952, aes(x = pop, y = lifeExp)) + geom_point() + scale_x_log10() + scale_y_log10()
+```
+
+
+```{r}
+## Adding color to a scatter plot
+
+ggplot(gapminder_1952, aes(x = pop, y = lifeExp, color = continent)) + scale_x_log10() + geom_point()
+
+## Adding size
+
+ggplot(gapminder_1952, aes(x = pop, y = lifeExp, color = continent, size = pop)) + scale_x_log10() + geom_point()
+```
+
+
+```{r}
+## Creating a subgraph for each continent
+# Scatter plot comparing pop and lifeExp, faceted by continent
+
+ggplot(gapminder_1952, aes(pop, lifeExp, color = continent, size = pop))+geom_point() + scale_x_log10() + facet_wrap(~ continent)
+```
+
+
+```{r}
+## Faceting by year: Dataset - Gapminer
+
+ggplot( gapminder, aes(x = gdpPercap, y = lifeExp, color = continent, size = pop)) + geom_point() + scale_x_log10() + facet_wrap(~year)
+```
+
+
+```{r}
+## Visualization comparing GDP with life Expectancy for 1992, 1997, 2002 and 2007
+
+gapminder_rec <- gapminder %>%
+  filter(year >= 1992)%>%
+  arrange(year)
+gapminder_rec
+ggplot (gapminder_rec, aes(x = gdpPercap, y = lifeExp, color = continent, size = pop)) + geom_point() + scale_x_log10() + facet_wrap(~year)
+
+
+```
+
+```{r}
+## Visualization comparing GDP with life Expectancy for 1997 and 2007 
+
+gapminder_97_07 <- gapminder %>%
+  filter(year == 1997 | year == 2007) %>%
+  arrange(year)
+gapminder_97_07
+
+ggplot(gapminder_97_07, aes(x = gdpPercap, y = lifeExp, color = continent, size = pop)) + geom_point() + scale_x_log10() + facet_wrap(~year)
+```
+
