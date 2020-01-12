@@ -1,0 +1,45 @@
+---
+title: "Importing Data in R (Part 1)"
+output: html_notebook
+---
+
+
+```{r}
+## Using Read.table
+# Use the file.choose() funtion to select your file
+
+hotdogs <- read.table(file.choose(), 
+                      sep = "", 
+                      col.names = c("type", "calories", "sodium"))
+
+# Inspect the data using the head() function
+
+head(hotdogs)
+
+# Data used was gotten from "http://wiki.stat.ucla.edu/socr/index.php/SOCR_012708_ID_Data_HotDogs"
+
+# Select the hot dog with the least calories: lily
+lily <- hotdogs[which.min(hotdogs$calories), ]
+
+# Select the observation with the most sodium: tom
+tom <- hotdogs[which.max(hotdogs$sodium), ]
+
+```
+
+
+```{r}
+## Column Classes
+
+hotdogs2 <- read.delim("hotdogs.txt", header = FALSE, 
+                       col.names = c("type", "calories", "sodium"),
+                       colClasses = c("character", "NULL", "numeric"))
+
+
+# Display structure of hotdogs2
+
+str(hotdogs2)
+hotdogs2
+```
+
+
+
